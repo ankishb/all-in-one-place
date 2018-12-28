@@ -9,18 +9,12 @@ In level wise splitting, even if there is possibility of further split at some o
 
 Note: It is also the reason for over-fitting.
 
-CONS:
-1.  
-
-
-
-
 
 ## Simple Ensemble Techniques
 
-    Max Voting
-    Averaging
-    Weighted Averaging
+- Max Voting
+- Averaging
+- Weighted Averaging
 
 ### VotingClassifier
 ```python

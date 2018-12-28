@@ -67,12 +67,11 @@ An underused type of feature engineering is bringing in external data.
 
 Possible next steps include collecting more data, splitting the problem apart, or engineering new features that address the errors. To use error analysis for feature engineering, you’ll need to understand why your model missed its mark.
 
-    Start with larger errors: Error analysis is typically a manual process. You won’t have time to scrutinize every observation. We recommend starting with those that had higher error scores. Look for patterns that you can formalize into new features.
-    Segment by classes: Another technique is to segment your observations and compare the average error within each segment. You can try creating indicator variables for the segments with the highest errors.
-    Unsupervised clustering: If you have trouble spotting patterns, you can run an unsupervised clustering algorithm on the misclassified observations. We don’t recommend blindly using those clusters as a new feature, but they can make it easier to spot patterns. Remember, the goal is to understand why observations were misclassified.
-    Ask colleagues or domain experts: This is a great complement to any of the other three techniques. Asking a domain expert is especially useful if you’ve identified a pattern of poor performance (e.g. through segmentations) but don’t yet understand why.
+- Segment by classes (try with higher error rate, draw some indicator feature from there)
+- Ask colleagues or domain experts
+- Look at instaces, with higher errors. Look for patterns that you can formalize into new features.
+- Unsupervised clustering
 
-Remember these general guidelines as you start to experiment on your own:
 
 ### Good features to engineer…
 
@@ -82,10 +81,9 @@ Remember these general guidelines as you start to experiment on your own:
 - Must have the potential to be predictive. Don’t just create features for the sake of it.
 - Never touch the target variable. This a trap that beginners sometimes fall into. Whether you’re creating indicator variables or interaction features, never use your target variable. That’s like “cheating” and it would give you very misleading results.
 
-#################################################################################################################################################################################################################################################################################################################################
+---
 
-
-## Feature Selection:
+## Feature Selection [src-analytics-vidya]:
 
 - Filter Methods
 - Wrapper Methods
@@ -133,13 +131,6 @@ It is a greedy optimization algorithm which aims to find the best performing fea
 
 
 
-
-
-
-
-
-
-
 ### Difference between Filter and Wrapper methods
 
 The main differences between the filter and wrapper methods for feature selection are:
@@ -159,14 +150,16 @@ The main differences between the filter and wrapper methods for feature selectio
 
 
 
-## [Feature Selection](https://www.kaggle.com/kanncaa1/feature-selection-and-data-visualization)
+## Feature Selection[More-Info](https://www.kaggle.com/kanncaa1/feature-selection-and-data-visualization)
 
 1) Feature selection with correlation and random forest classification¶
 
 
-#correlation map
+#### correlation map
+```python
 f,ax = plt.subplots(figsize=(18, 18))
 sns.heatmap(x.corr(), annot=True, linewidths=.5, fmt= '.1f',ax=ax)
+```
 
 using this coorelation map, we select some of the feature and check our algo pred rate.
 
@@ -278,10 +271,8 @@ plt.plot(range(1, len(rfecv.grid_scores_) + 1), rfecv.grid_scores_)
 
 5) Tree based feature selection and random forest classification
 
-
+Random forest choose randomly at each iteration, therefore sequence of feature importance list can change.
 ```python
-In random forest classification method there is a featureimportances attributes that is the feature importances (the higher, the more important the feature). !!! To use feature_importance method, in training data there should not be correlated features. Random forest choose randomly at each iteration, therefore sequence of feature importance list can change.
-
 clf_rf_5 = RandomForestClassifier()
 clr_rf_5 = clf_rf_5.fit(x_train,y_train)
 importances = clr_rf_5.feature_importances_
