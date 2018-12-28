@@ -77,12 +77,10 @@ train.shape
 
 
 
-## Dimensioality Reduction by preserving pairwise distances between samples
-
-**Best for distance based method**
+## Dimensioality Reduction by preserving pairwise distances between samples **Best for distance based method**
 Two method:
-1. sklearn.random_projection.GaussianRandomProjection 
-2. sklearn.random_projection.SparseRandomProjection
+1. `sklearn.random_projection.GaussianRandomProjection`
+2. `sklearn.random_projection.SparseRandomProjection`
 
 ```python
 from sklearn.random_projection import SparseRandomProjection
@@ -128,16 +126,9 @@ train["max"] = tmp_train.max(axis=1)
 train["min"] = tmp_train.min(axis=1)
 train["skew"] = tmp_train.skew(axis=1)
 train["kurtosis"] = tmp_train.kurtosis(axis=1)
-...
 ```
 
-        
-        
-        
-
-
-        
-        
+       
         
 ## Before Features engineering, always do this
 lets first concatenate the train and test data in the same dataframe
@@ -147,7 +138,7 @@ ntrain = train.shape[0]
 ntest = test.shape[0]
 y_train = train.target.values
 all_data = pd.concat((train, test)).reset_index(drop=True)
-all_data.drop(['target'], axis=1, inplace=True)           
+all_data.drop(['target'], axis=1, inplace=True)
 print("all_data size is : {}".format(all_data.shape))
 ```
 
@@ -244,11 +235,10 @@ from sklearn.model_selection import KFold, cross_val_score, train_test_split
 from sklearn.metrics import mean_squared_error
 import xgboost as xgb
 import lightgbm as lgb
-
+```
 Define a cross validation strategy
 
-We use the cross_val_score function of Sklearn. However this function has not a shuffle attribut, we add then one line of code, in order to shuffle the dataset prior to cross-validation
-
+```python
 #Validation function
 n_folds = 5
 
@@ -256,37 +246,29 @@ def rmsle_cv(model):
     kf = KFold(n_folds, shuffle=True, random_state=42).get_n_splits(train.values)
     rmse= np.sqrt(-cross_val_score(model, train.values, y_train, scoring="neg_mean_squared_error", cv = kf))
     return(rmse)
+```
 
-Base models
+### Base models
+- LASSO Regression : very sensitive to outliers. So we need to made it more robust on them. 
+- Elastic Net Regression : combined `L1` and `L2` regularizer.
+- Gradient Boosting Regression : With huber loss that makes it robust to outliers
 
-    LASSO Regression : very sensitive to outliers. So we need to made it more robust on them. 
-
+```python
 # Before using this, remove all outlier, either by your own by taking ist and 3rd quantile or 
 # or 
 from sklearn.preprocessing import RobustScaler
 lasso = make_pipeline(RobustScaler(), Lasso(alpha =0.0005, random_state=1))
 
-
 lasso = Lasso(alpha =0.0005, random_state=1)
-
-    Elastic Net Regression : again made robust to outliers
 
 ENet = ElasticNet(alpha=0.0005, l1_ratio=.9, random_state=3)
 
-    Kernel Ridge Regression :
-
 KRR = KernelRidge(alpha=0.6, kernel='polynomial', degree=2, coef0=2.5)
-
-    Gradient Boosting Regression :
-
-With huber loss that makes it robust to outliers
 
 GBoost = GradientBoostingRegressor(n_estimators=3000, learning_rate=0.05,
                                    max_depth=4, max_features='sqrt',
                                    min_samples_leaf=15, min_samples_split=10, 
                                    loss='huber', random_state =5)
-
-    XGBoost :
 
 model_xgb = xgb.XGBRegressor(colsample_bytree=0.4603, gamma=0.0468, 
                              learning_rate=0.05, max_depth=3, 
@@ -295,8 +277,6 @@ model_xgb = xgb.XGBRegressor(colsample_bytree=0.4603, gamma=0.0468,
                              subsample=0.5213, silent=1,
                              random_state =7, nthread = -1)
 
-    LightGBM :
-
 model_lgb = lgb.LGBMRegressor(objective='regression',
                             num_leaves=5,
                             learning_rate=0.05, n_estimators=720,
@@ -304,14 +284,15 @@ model_lgb = lgb.LGBMRegressor(objective='regression',
                             bagging_freq = 5, feature_fraction = 0.2319,
                             feature_fraction_seed=9, bagging_seed=9,
                             min_data_in_leaf =6, min_sum_hessian_in_leaf = 11)
+```
 
 Base models scores
 
-Lets see how these base models perform on the data by evaluating the cross-validation rmsle error
-
+```python
 score = rmsle_cv(lasso)
 print("\nLasso score: {:.4f} ({:.4f})\n".format(score.mean(), score.std()))
-
+```
+<!-- 
 Lasso score: 0.1115 (0.0074)
 
 score = rmsle_cv(ENet)
@@ -337,24 +318,13 @@ Xgboost score: 0.1161 (0.0079)
 score = rmsle_cv(model_lgb)
 print("LGBM score: {:.4f} ({:.4f})\n" .format(score.mean(), score.std()))
 
-LGBM score: 0.1157 (0.0067
-```
+LGBM score: 0.1157 (0.0067 -->
 
 
 
 
 
-### [StackingAveragingModel to introduce Meta-Model][https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard]
-
-
-
-
-from sklearn.model_selection import KFold, cross_val_score, train_test_split
-from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
-from sklearn.metrics import mean_squared_error
-import xgboost as xgb
-import lightgbm as lgb
-
+### [StackingAveragingModel to introduce Meta-Model](https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard)
 
 
 
@@ -362,8 +332,12 @@ import lightgbm as lgb
 
 ## LGB (Repeat)
 ```python
-from sklearn import model_selection, preprocessing, metrics
+from sklearn.model_selection import KFold, cross_val_score, train_test_split
+from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
+from sklearn.metrics import mean_squared_error
+import xgboost as xgb
 import lightgbm as lgb
+from sklearn import model_selection, preprocessing, metrics
 
 
 def run_lgb(train_X, train_y, val_X, val_y, test_X):
@@ -409,4 +383,4 @@ lgb.plot_importance(model, max_num_features=50, height=0.8, ax=ax)
 ax.grid(False)
 plt.title("LightGBM - Feature Importance", fontsize=15)
 plt.show()
- ```       
+ ```

@@ -1,10 +1,10 @@
----
+<!-- ---
 layout: post
 title: "some-thoughts-on-practical-data-science"
 categories: data-science
 author: "Ankish Bansal"
 ---
-
+ -->
 
 ## XGBModel
 
@@ -119,17 +119,6 @@ def evalerror(preds, dtrain):
 ```python
 bst = xgb.train(param, dtrain, num_round, watchlist, obj=logregobj, feval=evalerror)
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## General Approach for Parameter Tuning
@@ -336,7 +325,7 @@ y = np.array([0, 0, 1, 1])
 skf = StratifiedKFold(n_splits=2)
 skf.get_n_splits(X, y)
 
-print(skf)  
+print(skf)
 
 for train_index, test_index in skf.split(X, y):
    print("TRAIN:", train_index, "TEST:", test_index)
