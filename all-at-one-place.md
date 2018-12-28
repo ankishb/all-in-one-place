@@ -14,12 +14,12 @@
 - Wrapper Methods
 - Embedded Methods
 - Difference between Filter and Wrapper methods
-[Feature Selection] kaggle
-1) Feature selection with correlation and random forest classification¶
-2) Univariate feature selection and random forest classification
-3) Recursive feature elimination (RFE) with random forest
-4) Recursive feature elimination with cross validation and random forest classification
-5) Tree based feature selection and random forest classification
+- [Feature Selection] kaggle
+	1) Feature selection with correlation and random forest classification¶
+	2) Univariate feature selection and random forest classification
+	3) Recursive feature elimination (RFE) with random forest
+	4) Recursive feature elimination with cross validation and random forest classification
+	5) Tree based feature selection and random forest classification
 
 
 # practical-data-science
@@ -105,12 +105,12 @@
 	- Handle Imbalanced Dataset
 - use XGBClassifier ==> That has CV method inbuilt
 
-	1: Fix learning rate and number of estimators for tuning tree-based parameters
-	2: Tune max_depth and min_child_weight
-	3: Tune gamma
-	4: Tune subsample and colsample_bytree
-	5: Tuning Regularization Parameters
-	6: Reducing Learning Rate and repeat steps again
+	1. Fix learning rate and number of estimators for tuning tree-based parameters
+	2. Tune max_depth and min_child_weight
+	3. Tune gamma
+	4. Tune subsample and colsample_bytree
+	5. Tuning Regularization Parameters
+	6. Reducing Learning Rate and repeat steps again
 
 - Startified sampling
 - eval_result
