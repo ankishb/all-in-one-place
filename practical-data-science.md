@@ -1,6 +1,4 @@
----
-layout: post
----
+
 
 **As you read the tutorial, after that participate in this [kaggle compitition](https://www.kaggle.com/c/spooky-author-identification/data) to analyse your skill and practice.**
 
@@ -26,25 +24,25 @@ layout: post
 
 
 ## Stacking (stack net)
-	- It is a meta modelling approach.
-	- In the base leevl, we train week learner and then their prediction is used by another models, to get final prediction.
-	- It can be thought of as a NN model, where each node is replaced by one model.
+- It is a meta modelling approach.
+- In the base leevl, we train week learner and then their prediction is used by another models, to get final prediction.
+- It can be thought of as a NN model, where each node is replaced by one model.
 
-	**Process**:
-		- Split the adta in K parts
-		- train weak learner on each K-1 parts and holdout one part for prediction for each weak learner
+**Process**:
+- Split the adta in K parts
+- train weak learner on each K-1 parts and holdout one part for prediction for each weak learner
 
-		**EXP**: 
-		1. We split the dataset in 4 parts. 
-		2. Now, train first weak learner on 1,2,3 and predict on 4th.
-		3. Train 2nd weak learner on 1,2,4 and predict on 3rd.
-		4. repeat on 
-		5. Now, we have prediction of eavh learner on separate hold-out and after combining all, we get prediction on entire data-set.
+**EXP**: 
+1. We split the dataset in 4 parts. 
+2. Now, train first weak learner on 1,2,3 and predict on 4th.
+3. Train 2nd weak learner on 1,2,4 and predict on 3rd.
+4. repeat on 
+5. Now, we have prediction of eavh learner on separate hold-out and after combining all, we get prediction on entire data-set.
 
 
 
 ## Ensemble Model:
-	- train multiple model and use their prediction as feature for another staged model and so on.
+- train multiple model and use their prediction as feature for another staged model and so on.
 
 
 ## Data-Leakage
@@ -141,7 +139,7 @@ stem.stem(word)
 ```
 
 
-### Noise Removal
+### Noise Removal in text
 
 ```python
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
@@ -157,7 +155,7 @@ stop_words = stopwords.words('english')
 
 
 ## Classical Validation
-	We generally, split our data-set into training and testing. Further from training data-set, we take some part for validation. This is classical setting. **We use K-Fold validation strategy to obtain unbiased estimate of the performance, i.e. sum of all fold's prediction / K**
+> We generally, split our data-set into training and testing. Further from training data-set, we take some part for validation. This is classical setting. **We use K-Fold validation strategy to obtain unbiased estimate of the performance, i.e. sum of all fold's prediction / K**
 
 **Noe that this K-Fold validation considers on training data**
 
@@ -178,22 +176,22 @@ When dealing with time series data, traditional cross-validation (like k-fold) s
 
 
 ## Nested CV method
-	-Predict Second half           
+-Predict Second half
 
-	Choose any random test set and on remaining data-set, main training and validation with temporal relation
+Choose any random test set and on remaining data-set, main training and validation with temporal relation
 
-	**Not much robust**, because opf random test-set selection.
+**Not much robust**, because opf random test-set selection.
 
-	- Forward chaining
+- Forward chaining
 
-	Maintain temporal relation between all three train, validation and test set.
+Maintain temporal relation between all three train, validation and test set.
 
-	For example, we have data for 10 days.
-	1. train on 1st day, validate on 2nd and test on else
-	2. train on first-two, validate on third and test on else
-	3. repeat.
+For example, we have data for 10 days.
+1. train on 1st day, validate on 2nd and test on else
+2. train on first-two, validate on third and test on else
+3. repeat.
 
- 	This method produces many different train/test splits and the error on each split is averaged in order to compute a robust estimate of the model error.
+> This method produces many different train/test splits and the error on each split is averaged in order to compute a robust estimate of the model error.
 
 
 
@@ -312,24 +310,6 @@ Examples
         This is only available if no vocabulary was given.
 
     """
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## GridSearchCV

@@ -152,11 +152,11 @@ s = s.astype(str)
 
 
 
-
+### Another way
+```python
 train.astype({"Credit_History":object}).dtypes
-
 train.groupby(cols[4])['Loan_Status'].count()
-
+```
 
 
 
@@ -203,7 +203,7 @@ for i in range(3):
 
 
 
-## apply() 
+## apply function 
 apply a function along a specific axis (meaning, either rows (axis = 1) or columns (axis = 0)) of a DataFrame
 
 

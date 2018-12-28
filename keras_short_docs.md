@@ -182,7 +182,18 @@ model.fit(x=X_train,
         
         
  ## fit_generator
- 
+```python
+def generate_arrays_from_file(path):
+    while True:
+        with open(path) as f:
+            for line in f:
+                # create numpy arrays of input data
+                # and labels, from each line in the file
+                x1, x2, y = process_line(line)
+                yield ({'input_1': x1, 'input_2': x2}, {'output': y})
+model.fit_generator(generate_arrays_from_file('/my_file.txt'),
+                    steps_per_epoch=10000, epochs=10)
+```
     fit_generator(generator,
                   steps_per_epoch=None,
                   epochs=1,
@@ -251,18 +262,7 @@ model.fit(x=X_train,
         # Returns
             `History.history` attribute has a record of training loss values and metrics values
        # Example
-```python
-def generate_arrays_from_file(path):
-    while True:
-        with open(path) as f:
-            for line in f:
-                # create numpy arrays of input data
-                # and labels, from each line in the file
-                x1, x2, y = process_line(line)
-                yield ({'input_1': x1, 'input_2': x2}, {'output': y})
-model.fit_generator(generate_arrays_from_file('/my_file.txt'),
-                    steps_per_epoch=10000, epochs=10)
-```
+
         """
         
         
@@ -398,12 +398,11 @@ TimeDistributed(Dense(out_dims, activation='sigmoid'))(input_layer)
 ## Stratified Sampling with Keras
 Split the entire data into one training and test data-set
 ```python
-    ## stratify sampling or splitting       
+    ## stratify sampling or splitting
     from sklearn.model_selection import train_test_split
     X_train, X_test, y_train, y_test = train_test_split(df.col1,df.target,
                                                         stratify=df.target, 
-                                                        test_size=0.2)     
-
+                                                        test_size=0.2)
 ```
 ## Stratify k-Fold training
 Idea is to take one Fold and reset the model and train it again
@@ -450,23 +449,6 @@ from sklearn.model_selection import StratifiedKFold
     
     
     
-    
-    
-
-    
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
 
 
 

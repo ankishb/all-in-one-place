@@ -9,7 +9,7 @@
 
 **NOTE**: Pasty is python package(lib), that can help in feature generation
 
-## For categorical feature, use **ontrast Coding** 
+## For categorical feature, can use **contrast Coding** 
 
 ```python
 import category_encoders as ce
@@ -18,7 +18,7 @@ data['cat_variable_encoding'] = encoder.fit_transform(data['cat_variable'])
 ```
 
 
-#################################################################################################################################################################################################################################################################################################################################
+
 
 
 ## Feature Engineering:
@@ -140,12 +140,6 @@ The main differences between the filter and wrapper methods for feature selectio
 - Filter methods use statistical methods for evaluation of a subset of features while wrapper methods use cross validation.
 - Filter methods might fail to find the best subset of features in many occasions but wrapper methods can always provide the best subset of features.
 - Using the subset of features from the wrapper methods make the model more prone to overfitting as compared to using subset of features from the filter methods
-
-
-
-
-
-
 
 
 

@@ -1,5 +1,5 @@
 
-#### Note: Following docs is prepared from the keras official docs/code, with the objective to prepared only info that is used daily in most cases.
+**Note**: Following docs is prepared from the keras official docs/code, with the objective to prepared only info that is used daily in most cases.
 
 This doc contains following contents:
 

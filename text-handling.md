@@ -1,28 +1,8 @@
 
 
-Descriptive analysis: What happened?
-		Statistics, 
+## SVD
 
-Diagnostic: Why it happened?
-		Deeper insight into hypothesis...
-
-
-Predictive analysis: what could happen?
-		what steps or interventions that need to be taken to achieve the desired outcomes
-
-Prescriptive analytics: What is the right course of action?
-
-Adaptive and autonomous: What to do to adapt to change happen?
-		 “How does the system adapt to changes? How can we run analytics solutions on a continuous mode constantly learning and correcting its behavior to optimize its performance?"
-
-
-
-
-
-
-
-
-
+```python
 from sklearn import preprocessing, decomposition, model_selection, metrics
 from sklearn.model_selection import GridSearchCV
 from sklearn.decomposition import TruncatedSVD
@@ -39,11 +19,12 @@ scl = preprocessing.StandardScaler()
 scl.fit(xtrain_svd)
 xtrain_svd_scl = scl.transform(xtrain_svd)
 xvalid_svd_scl = scl.transform(xvalid_svd)
+```
 
 
 
-
-# Create the pipeline 
+## Create the pipeline with gridsearch
+```python
 clf = xgb.fit(X,y)
 
 Next we need a grid of parameters:
@@ -52,7 +33,6 @@ param_grid = {'svd__n_components' : [120, 180],
               'lr__C': [0.1, 1.0, 10], 
               'lr__penalty': ['l1', 'l2']}
 
-So, for SVD we evaluate 120 and 180 components and for logistic regression we evaluate three different values of C with l1 and l2 penalty. We can now start grid search on these parameters.
 
 # Initialize Grid Search Model
 model = GridSearchCV(estimator=clf, param_grid=param_grid, scoring=mll_scorer,
@@ -65,6 +45,7 @@ print("Best parameters set:")
 best_parameters = model.best_estimator_.get_params()
 for param_name in sorted(param_grid.keys()):
     print("\t%s: %r" % (param_name, best_parameters[param_name]))
+```
 
 
 
@@ -76,16 +57,14 @@ for param_name in sorted(param_grid.keys()):
 
 
 
-
-
-
-############################
+<!-- 
+################################################################################################################################################ -->
 ## Word-Vectors
 
 
 [Download][http://www-nlp.stanford.edu/data/glove.840B.300d.zip]
 
-# load the GloVe vectors in a dictionary:
+### load the GloVe vectors in a dictionary:
 
 embeddings_index = {}
 f = open('glove.840B.300d.txt')
@@ -100,7 +79,7 @@ print('Found %s word vectors.' % len(embeddings_index))
 
 
 
-# this function creates a normalized vector for the whole sentence
+### tnormalized vector for the whole sentence
 def sent2vec(s):
     words = str(s).lower().decode('utf-8')
     words = word_tokenize(words)
@@ -120,7 +99,7 @@ def sent2vec(s):
 
 
 
-# create sentence vectors using the above function for training and validation set
+### create sentence vectors using the above function for training and validation set
 xtrain_glove = [sent2vec(x) for x in tqdm(xtrain)]
 xvalid_glove = [sent2vec(x) for x in tqdm(xvalid)]
 
@@ -136,32 +115,12 @@ xvalid_glove = np.array(xvalid_glove)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-################################
-Using all keras
-
+## Using all keras for text handling
 
 
 To move further, i.e. with LSTMs we need to tokenize the text data
 
+```python
 # using keras tokenizer here
 token = text.Tokenizer(num_words=None)
 max_len = 70
@@ -182,10 +141,11 @@ for word, i in tqdm(word_index.items()):
     embedding_vector = embeddings_index.get(word)
     if embedding_vector is not None:
         embedding_matrix[i] = embedding_vector
+```
 
+### A simple LSTM with glove embeddings and two dense layers
 
-
-# A simple LSTM with glove embeddings and two dense layers
+```python
 model = Sequential()
 model.add(Embedding(len(word_index) + 1,
                      300,
@@ -204,4 +164,4 @@ model.add(Dropout(0.8))
 model.add(Dense(3))
 model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam')
-
+```

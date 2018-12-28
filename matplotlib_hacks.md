@@ -35,7 +35,7 @@ with plt.style.context('stylename'):
 ### Violin plot
 Before ploting, do data-normalize
 ```python
-data_n_2 = (data - data.mean()) / (data.std())              # standardization
+data_n_2 = (data - data.mean()) / (data.std())
 data = pd.concat([y,data_n_2.iloc[:,0:10]],axis=1)
 data = pd.melt(data,id_vars="diagnosis",
                     var_name="features",
@@ -71,7 +71,7 @@ g.map_diag(sns.kdeplot, lw=3)
 sns.set(style="whitegrid", palette="muted")
 data_dia = y
 data = x
-data_n_2 = (data - data.mean()) / (data.std())              # standardization
+data_n_2 = (data - data.mean()) / (data.std())
 data = pd.concat([y,data_n_2.iloc[:,0:10]],axis=1)
 data = pd.melt(data,id_vars="diagnosis",
                     var_name="features",

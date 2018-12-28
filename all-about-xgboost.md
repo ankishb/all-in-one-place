@@ -316,7 +316,7 @@ modelfit(xgb4, train, predictors)
 
 
 
-# Startified sampling
+## Startified sampling
 
 ```python
 from sklearn.model_selection import StratifiedKFold

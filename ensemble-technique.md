@@ -1,6 +1,7 @@
 
 [src: Analytics-vidya tutorial on Ensembling]
 
+## Diff between XGBoost and light-GBM
 XGBoost: Level-wise splitting
 
 Light-GBM: Leaf wise splitting, Bucketing (continuous variable to discrete bins), Parallel Processing

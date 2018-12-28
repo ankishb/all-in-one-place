@@ -144,7 +144,7 @@ print("all_data size is : {}".format(all_data.shape))
 
 
 
-## Handling Missing Data
+## Check all Missing Data
 It nicely find the ratio of missing element, and show in descening order
 
 ```python
