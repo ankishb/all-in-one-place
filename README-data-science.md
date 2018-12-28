@@ -5,42 +5,48 @@
 [Link][https://jeffdelaney.me/blog/useful-snippets-in-pandas/]
 
 ## Find the columns with half serached name
+```python
 unwanted = x.columns[x.columns.str.startswith('ps_calc_')]
 x.drop(unwanted,inplace=True,axis=1)
+```
 
-## pandas DataFrame
- DataFrame(data=None, index=None, columns=None, dtype=None)
+## pandas DataFrame: DataFrame(data=None, index=None, columns=None, dtype=None)
 
-    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+```python
+df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
 
-    >>> df2 = pd.DataFrame(np.random.randint(low=0, high=10, size=(5, 5)),
-    ...                    columns=['a', 'b', 'c', 'd', 'e'], dtype=np.int8)
-    >>> df2
-        a   b   c   d   e
-    0   2   8   8   3   4
-    1   4   2   9   0   9
-    2   1   0   7   8   0
-    3   5   1   7   1   3
-    4   6   0   2   4   2
+>>> df2 = pd.DataFrame(np.random.randint(low=0, high=10, size=(5, 5)),
+...                    columns=['a', 'b', 'c', 'd', 'e'], dtype=np.int8)
+>>> df2
+    a   b   c   d   e
+0   2   8   8   3   4
+1   4   2   9   0   9
+2   1   0   7   8   0
+3   5   1   7   1   3
+4   6   0   2   4   2
+```
 
 
 ## Replace outlier with the median of that features
-    mean, std = users[cols[0]].mean(), users[cols[0]].std()
-    median = users[cols[0]].loc[(users[cols[0]] - mean).abs() < 3*std].median()
-    users['testing'] = np.where((users[cols[0]] - mean).abs() > 3*std, median,users[cols[0]])
-    plt.plot(users['testing'])
+```python
+mean, std = users[cols[0]].mean(), users[cols[0]].std()
+median = users[cols[0]].loc[(users[cols[0]] - mean).abs() < 3*std].median()
+users['testing'] = np.where((users[cols[0]] - mean).abs() > 3*std, median,users[cols[0]])
+plt.plot(users['testing'])
+```
     
     
 ## Remove outliers
-    # np.percentile(train[cols[0]],q=0.1)
-    q1 = users[cols[0]].quantile(0.10)
-    q3 = users[cols[0]].quantile(0.90)
-    iqr = q3-q1
-    # train[cols[0]][~(train[cols[0]] < (q1-1.5*iqr) | train[cols[0]] > (q1+1.5*iqr)).
-    #                any(axis=1)].shape
-    users = users[(users[cols[0]]< (q3+1.5*iqr))]
-    users = users[(users[cols[0]]>(q1-1.5*iqr))]
-
+```python
+# np.percentile(train[cols[0]],q=0.1)
+q1 = users[cols[0]].quantile(0.10)
+q3 = users[cols[0]].quantile(0.90)
+iqr = q3-q1
+# train[cols[0]][~(train[cols[0]] < (q1-1.5*iqr) | train[cols[0]] > (q1+1.5*iqr)).
+#                any(axis=1)].shape
+users = users[(users[cols[0]]< (q3+1.5*iqr))]
+users = users[(users[cols[0]]>(q1-1.5*iqr))]
+```
 
 
 ## Merging array in the DataFrame
@@ -53,89 +59,96 @@ x.drop(unwanted,inplace=True,axis=1)
 
 
 ## One-Hot Encoding
-    a = np.array([1, 0, 3])
-    b = np.zeros((3, 4))
-    b[np.arange(3), a] = 1
-    b
-    array([[ 0.,  1.,  0.,  0.],
-           [ 1.,  0.,  0.,  0.],
-           [ 0.,  0.,  0.,  1.]])
-           
+```python
+a = np.array([1, 0, 3])
+b = np.zeros((3, 4))
+b[np.arange(3), a] = 1
+b
+array([[ 0.,  1.,  0.,  0.],
+       [ 1.,  0.,  0.,  0.],
+       [ 0.,  0.,  0.,  1.]])
+       
 
- 
-    users = np.zeros((4,3345))
-    users[np.arange(4), temp[:,1].astype(int)[0]] = 1 
-    users
+
+users = np.zeros((4,3345))
+users[np.arange(4), temp[:,1].astype(int)[0]] = 1 
+users
+```
         
         
 
 ## pd.dummy_variable
     Convert categorical variable into dummy/indicator variables
     
-    all_data = pd.get_dummies(all_data)
-    
-    pd.get_dummies(df, prefix=['col1', 'col2'])
-    
-    df = pd.DataFrame({'A': ['a', 'b', 'a'], 'B': ['b', 'a', 'c'],
-                'C': [1, 2, 3]})
+```python
+all_data = pd.get_dummies(all_data)
 
-        C  col1_a  col1_b  col2_a  col2_b  col2_c
-    0  1       1       0       0       1       0
-    1  2       0       1       1       0       0
-    2  3       1       0       0       0       1
-  
+pd.get_dummies(df, prefix=['col1', 'col2'])
+
+df = pd.DataFrame({'A': ['a', 'b', 'a'], 'B': ['b', 'a', 'c'],
+            'C': [1, 2, 3]})
+
+    C  col1_a  col1_b  col2_a  col2_b  col2_c
+0  1       1       0       0       1       0
+1  2       0       1       1       0       0
+2  3       1       0       0       0       1
+```
         
 ## convert data-type
 
-### The input to to_numeric() is a Series or a single column of a DataFrame.
+The input to to_numeric() is a Series or a single column of a DataFrame.
 
-    s = pd.Series(["8", 6, "7.5", 3, "0.9"]) # mixed string and numeric values
-    s
-    0      8
-    1      6
-    2    7.5
-    3      3
-    4    0.9
-    dtype: object
+```python
+s = pd.Series(["8", 6, "7.5", 3, "0.9"]) # mixed string and numeric values
+s
+0      8
+1      6
+2    7.5
+3      3
+4    0.9
+dtype: object
 
-    pd.to_numeric(s) # convert everything to float values
-    0    8.0
-    1    6.0
-    2    7.5
-    3    3.0
-    4    0.9
-    dtype: float64
+pd.to_numeric(s) # convert everything to float values
+0    8.0
+1    6.0
+2    7.5
+3    3.0
+4    0.9
+dtype: float64
+```
 
-### As you can see, a new Series is returned. Remember to assign this output to a variable or column name to continue using it:
+As you can see, a new Series is returned. Remember to assign this output to a variable or column name to continue using it:
 
-    # convert Series
-    my_series = pd.to_numeric(my_series)
+```python
+# convert Series
+my_series = pd.to_numeric(my_series)
 
-    # convert column "a" of a DataFrame
-    df["a"] = pd.to_numeric(df["a"])
+# convert column "a" of a DataFrame
+df["a"] = pd.to_numeric(df["a"])
 
-    You can also use it to convert multiple columns of a DataFrame via the apply() method:
+You can also use it to convert multiple columns of a DataFrame via the apply() method:
 
-    # convert all columns of DataFrame
-    df = df.apply(pd.to_numeric) # convert all columns of DataFrame
+# convert all columns of DataFrame
+df = df.apply(pd.to_numeric) # convert all columns of DataFrame
 
-    # convert just columns "a" and "b"
-    df[["a", "b"]] = df[["a", "b"]].apply(pd.to_numeric)
-
-
+# convert just columns "a" and "b"
+df[["a", "b"]] = df[["a", "b"]].apply(pd.to_numeric)
 
 
-    # convert all DataFrame columns to the int64 dtype
-    df = df.astype(int)
 
-    # convert column "a" to int64 dtype and "b" to complex type
-    df = df.astype({"a": int, "b": complex})
 
-    # convert Series to float16 type
-    s = s.astype(np.float16)
+# convert all DataFrame columns to the int64 dtype
+df = df.astype(int)
 
-    # convert Series to Python strings
-    s = s.astype(str)
+# convert column "a" to int64 dtype and "b" to complex type
+df = df.astype({"a": int, "b": complex})
+
+# convert Series to float16 type
+s = s.astype(np.float16)
+
+# convert Series to Python strings
+s = s.astype(str)
+```
 
 
 
@@ -190,18 +203,11 @@ for i in range(3):
 
 
 
+## apply() 
+apply a function along a specific axis (meaning, either rows (axis = 1) or columns (axis = 0)) of a DataFrame
 
 
-
-
-
-
-
-
-## apply() a function along a specific axis (meaning, either rows (axis = 1) or columns (axis = 0)) of a DataFrame
-
-
-# Timing apply on the Haversine function
+#### Timing apply on the Haversine function
 
  df['feature'] = df.apply(lambda row: funct(12, row['col1'],row['col2']), axis=1)
 

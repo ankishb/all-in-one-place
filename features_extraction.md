@@ -86,7 +86,6 @@ Remember these general guidelines as you start to experiment on your own:
 
 
 ## Feature Selection:
-Table of Contents
 
 - Filter Methods
 - Wrapper Methods
@@ -96,19 +95,15 @@ Table of Contents
 
 
 
+### Filter Methods.
 
+- Pearson’s Correlation: It is used as a measure for quantifying linear dependence between two continuous variables X and Y. Its value varies from -1 to +1.
 
-    Pearson’s Correlation: It is used as a measure for quantifying linear dependence between two continuous variables X and Y. Its value varies from -1 to +1. Pearson’s correlation is given as:
+- LDA: Linear discriminant analysis is used to find a linear combination of features that characterizes or separates two or more classes (or levels) of a categorical variable.
 
-fs2
+Chi-Square: It is a is a statistical test applied to the groups of categorical features to evaluate the likelihood of correlation or association between them using their frequency distribution.
 
-    LDA: Linear discriminant analysis is used to find a linear combination of features that characterizes or separates two or more classes (or levels) of a categorical variable.
-
-    ANOVA: ANOVA stands for Analysis of variance. It is similar to LDA except for the fact that it is operated using one or more categorical independent features and one continuous dependent feature. It provides a statistical test of whether the means of several groups are equal or not.
-
-    Chi-Square: It is a is a statistical test applied to the groups of categorical features to evaluate the likelihood of correlation or association between them using their frequency distribution.
-
-One thing that should be kept in mind is that filter methods do not remove multicollinearity. So, you must deal with multicollinearity of features as well before training models for your data.
+**NOTE**: Filter Methods does not remove multicollinearity.
 
 
 
@@ -116,16 +111,27 @@ One thing that should be kept in mind is that filter methods do not remove multi
 
 
 
+### wrapper methods:
+Here, we try to use a subset of features and train a model using them. Based on the inferences that we draw from the previous model, we decide to add or remove features from your subset. 
+-This is a search problem. 
+-This is computationally very expensive.
+
+Methods:
+- forward feature selection
+- backward feature elimination
+- recursive feature elimination
+
+#### Forward Selection:
+Forward selection is an iterative method in which we start with having no feature in the model. In each iteration, we keep adding the feature which best improves our model till an addition of a new variable does not improve the performance of the model.
+
+#### Backward Elimination
+In backward elimination, we start with all the features and removes the least significant feature at each iteration which improves the performance of the model. We repeat this until no improvement is observed on removal of features.
+
+#### Recursive Feature elimination
+It is a greedy optimization algorithm which aims to find the best performing feature subset. It repeatedly creates models and keeps aside the best or the worst performing feature at each iteration. It constructs the next model with the left features until all the features are exhausted. It then ranks the features based on the order of their elimination.
 
 
 
-In wrapper methods, we try to use a subset of features and train a model using them. Based on the inferences that we draw from the previous model, we decide to add or remove features from your subset. The problem is essentially reduced to a search problem. These methods are usually computationally very expensive.
-
-Some common examples of wrapper methods are forward feature selection, backward feature elimination, recursive feature elimination, etc.
-
-    Forward Selection: Forward selection is an iterative method in which we start with having no feature in the model. In each iteration, we keep adding the feature which best improves our model till an addition of a new variable does not improve the performance of the model.
-    Backward Elimination: In backward elimination, we start with all the features and removes the least significant feature at each iteration which improves the performance of the model. We repeat this until no improvement is observed on removal of features.
-    Recursive Feature elimination: It is a greedy optimization algorithm which aims to find the best performing feature subset. It repeatedly creates models and keeps aside the best or the worst performing feature at each iteration. It constructs the next model with the left features until all the features are exhausted. It then ranks the features based on the order of their elimination.
 
 
 
@@ -134,18 +140,15 @@ Some common examples of wrapper methods are forward feature selection, backward 
 
 
 
-
-
-
-5. Difference between Filter and Wrapper methods
+### Difference between Filter and Wrapper methods
 
 The main differences between the filter and wrapper methods for feature selection are:
 
-    Filter methods measure the relevance of features by their correlation with dependent variable while wrapper methods measure the usefulness of a subset of feature by actually training a model on it.
-    Filter methods are much faster compared to wrapper methods as they do not involve training the models. On the other hand, wrapper methods are computationally very expensive as well.
-    Filter methods use statistical methods for evaluation of a subset of features while wrapper methods use cross validation.
-    Filter methods might fail to find the best subset of features in many occasions but wrapper methods can always provide the best subset of features.
-    Using the subset of features from the wrapper methods make the model more prone to overfitting as compared to using subset of features from the filter methods
+- Filter methods measure the relevance of features by their correlation with dependent variable while wrapper methods measure the usefulness of a subset of feature by actually training a model on it.
+- Filter methods are much faster compared to wrapper methods as they do not involve training the models. On the other hand, wrapper methods are computationally very expensive as well.
+- Filter methods use statistical methods for evaluation of a subset of features while wrapper methods use cross validation.
+- Filter methods might fail to find the best subset of features in many occasions but wrapper methods can always provide the best subset of features.
+- Using the subset of features from the wrapper methods make the model more prone to overfitting as compared to using subset of features from the filter methods
 
 
 
@@ -178,7 +181,7 @@ from sklearn.metrics import accuracy_score
 x_train, x_test, y_train, y_test = train_test_split(x_1, y, test_size=0.3, random_state=42)
 
 #random forest classifier with n_estimators=10 (default)
-clf_rf = RandomForestClassifier(random_state=43)      
+clf_rf = RandomForestClassifier(random_state=43)
 clr_rf = clf_rf.fit(x_train,y_train)
 
 ac = accuracy_score(y_test,clf_rf.predict(x_test))
@@ -213,7 +216,7 @@ Using this selction score, we obtain the top k feature, using `transform` functi
 x_train_2 = select_feature.transform(x_train)
 x_test_2 = select_feature.transform(x_test)
 #random forest classifier with n_estimators=10 (default)
-clf_rf_2 = RandomForestClassifier()      
+clf_rf_2 = RandomForestClassifier() 
 clr_rf_2 = clf_rf_2.fit(x_train_2,y_train)
 ac_2 = accuracy_score(y_test,clf_rf_2.predict(x_test_2))
 print('Accuracy is: ',ac_2)
@@ -233,7 +236,7 @@ Basically, it uses one of the classification methods (random forest in our examp
 ```python
 from sklearn.feature_selection import RFE
 # Create the RFE object and rank each pixel
-clf_rf_3 = RandomForestClassifier()      
+clf_rf_3 = RandomForestClassifier()
 rfe = RFE(estimator=clf_rf_3, n_features_to_select=5, step=1)
 rfe = rfe.fit(x_train, y_train)
 
@@ -279,7 +282,7 @@ plt.plot(range(1, len(rfecv.grid_scores_) + 1), rfecv.grid_scores_)
 ```python
 In random forest classification method there is a featureimportances attributes that is the feature importances (the higher, the more important the feature). !!! To use feature_importance method, in training data there should not be correlated features. Random forest choose randomly at each iteration, therefore sequence of feature importance list can change.
 
-clf_rf_5 = RandomForestClassifier()      
+clf_rf_5 = RandomForestClassifier()
 clr_rf_5 = clf_rf_5.fit(x_train,y_train)
 importances = clr_rf_5.feature_importances_
 std = np.std([tree.feature_importances_ for tree in clf_rf.estimators_],
@@ -308,90 +311,3 @@ Feature ranking:
 
 
 
-**CHECK THIS**
-#####################################
-#####################################
-#####################################
-#####################################
-#####################################
-    Embedded method: they perform variable selection as part of the learning procedure and are usually specific to given learning machines. Examples are classification trees, random forests.
-
-        Pros: less computationally intensive than wrapper methods
-        Cons: specific to a learning machine
-
-
-    Wrapper methods: these methods assess subsets of variables according to their usefulness to a given predictor. The method conducts a search for a good subset using the learning algorithm itself as part of the evaluation function. The problem boils down to a problem of stochastic state space search. E.g. the stepwise methods in linear regression.
-
-        Pros: interaction between feature subset search and model selection, and the ability to take into account feature dependencies
-        Cons: higher risk of overfitting than filter techniques and are very computationally intensive, especially if building the classifier has a high computational cost
-#####################################
-#####################################
-#####################################
-#####################################
-#####################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# EDA
-
-
-data_n_2 = (data - data.mean()) / (data.std())              # standardization
-data = pd.concat([y,data_n_2.iloc[:,0:10]],axis=1)
-data = pd.melt(data,id_vars="diagnosis",
-                    var_name="features",
-                    value_name='value')
-plt.figure(figsize=(10,10))
-sns.violinplot(x="features", y="value", hue="diagnosis", data=data,split=True, inner="quart")
-plt.xticks(rotation=90)
-
-
-
-plt.figure(figsize=(10,10))
-sns.boxplot(x="features", y="value", hue="diagnosis", data=data)
-plt.xticks(rotation=90)
-
-
-### Joint plot
-sns.jointplot(x.loc[:,'concavity_worst'], x.loc[:,'concave points_worst'], kind="regg", color="#ce1414")
-
-
-### Pair Grid plot
-sns.set(style="white")
-df = x.loc[:,['radius_worst','perimeter_worst','area_worst']]
-g = sns.PairGrid(df, diag_sharey=False)
-g.map_lower(sns.kdeplot, cmap="Blues_d")
-g.map_upper(plt.scatter)
-g.map_diag(sns.kdeplot, lw=3)
-
-
-### Swarm plot
-sns.set(style="whitegrid", palette="muted")
-data_dia = y
-data = x
-data_n_2 = (data - data.mean()) / (data.std())              # standardization
-data = pd.concat([y,data_n_2.iloc[:,0:10]],axis=1)
-data = pd.melt(data,id_vars="diagnosis",
-                    var_name="features",
-                    value_name='value')
-plt.figure(figsize=(10,10))
-tic = time.time()
-sns.swarmplot(x="features", y="value", hue="diagnosis", data=data)
-
-plt.xticks(rotation=90)

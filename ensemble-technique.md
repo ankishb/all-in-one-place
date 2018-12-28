@@ -1,5 +1,5 @@
 
-#### Note: Analytics-vidya tutorial on Ensembling
+[src: Analytics-vidya tutorial on Ensembling]
 
 XGBoost: Level-wise splitting
 
@@ -66,6 +66,9 @@ finalpred=(pred1*0.3+pred2*0.3+pred3*0.4)
 
 
 ## Advanced Ensemble techniques
+- Stacking
+- Blending
+
 
 ### Stacking:
 1. Train a model on all fold except one
@@ -124,16 +127,15 @@ model.score(df_test, y_test)
 
 
 
-##
-3.2 Blending
+### Blending
 
 Blending follows the same approach as stacking but uses only a holdout (validation) set from the train set to make predictions. In other words, unlike stacking, the predictions are made on the holdout set only. The holdout set and the predictions are used to build a model which is run on the test set. Here is a detailed explanation of the blending process:
 
-    The train set is split into training and validation sets.
-    Model(s) are fitted on the training set.
-    The predictions are made on the validation set and the test set.
-    The validation set and its predictions are used as features to build a new model.
-    This model is used to make final predictions on the test and meta-features
+1. The train set is split into training and validation sets.
+2. Model(s) are fitted on the training set.
+3. The predictions are made on the validation set and the test set.
+4. The validation set and its predictions are used as features to build a new model.
+5. This model is used to make final predictions on the test and meta-features
 
 
 ```python
@@ -150,47 +152,43 @@ model.score(df_test,y_test)
 
 Note: Bootstrapping is a sampling technique in which we create subsets of observations from the original dataset, with replacement. The size of the subsets is the same as the size of the original set.
 
-Multiple subsets are created from the original dataset, selecting observations with replacement.
-A base model (weak model) is created on each of these subsets.
-The models run in parallel and are independent of each other.
-The final predictions are determined by combining the predictions from all the models
+- Multiple subsets are created from the original dataset, selecting observations with replacement.
+- A base model (weak model) is created on each of these subsets.
+- The models run in parallel and are independent of each other.
+- The final predictions are determined by combining the predictions from all the models
 
 
 
 ## Boosting 
 Boosting is a sequential process, where each subsequent model attempts to correct the errors of the previous model. The succeeding models are dependent on the previous model. Let’s understand the way boosting works in the below steps.
 
-    A subset is created from the original dataset.
-    Initially, all data points are given equal weights.
-    A base model is created on this subset.
-    This model is used to make predictions on the whole dataset.
-    Errors are calculated using the actual values and predicted values.
-    The observations which are incorrectly predicted, are given higher weights.
-    (Here, the three misclassified blue-plus points will be given higher weights)
-    Another model is created and predictions are made on the dataset.
-    (This model tries to correct the errors from the previous model)
-    Similarly, multiple models are created, each correcting the errors of the previous model.
-    The final model (strong learner) is the weighted mean of all the models (weak learners). Thus, the boosting algorithm combines a number of weak learners to form a strong learner. The individual models would not perform well on the entire dataset, but they work well for some part of the dataset. Thus, each model actually boosts the performance of the ensemble.
+1. A subset is created from the original dataset.
+2. Initially, all data points are given equal weights.
+3. A base model is created on this subset.
+4. This model is used to make predictions on the whole dataset.
+5. Errors are calculated using the actual values and predicted values.
+6. The observations which are incorrectly predicted, are given higher weights.
+7. Another model is created and predictions are made on the dataset.(This model tries to correct the errors from the previous model)
+8. Similarly, multiple models are created, each correcting the errors of the previous model.
+9. The final model (strong learner) is the weighted mean of all the models (weak learners). Thus, the boosting algorithm combines a number of weak learners to form a strong learner. The individual models would not perform well on the entire dataset, but they work well for some part of the dataset. Thus, each model actually boosts the performance of the ensemble.
 
 
 
 
-Bagging algorithms:
+## Bagging algorithms:
 
-    Bagging meta-estimator
-    Random forest
+- Bagging meta-estimator
+- Random forest
 
-Boosting algorithms:
+## Boosting algorithms:
 
-    AdaBoost
-    GBM
-    XGBM
-    Light GBM
-    CatBoost
+- AdaBoost
+- GBM
+- XGBM
+- Light GBM
+- CatBoost
 
-
-
-###################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################
+---
 
 
 
@@ -243,23 +241,19 @@ Parameters used in the  algorithms:
         This parameter is useful when you want to compare different models.
 
  
-4.2 Random Forest
+### Random Forest
 
-Random Forest is another ensemble machine learning algorithm that follows the bagging technique. It is an extension of the bagging estimator algorithm. The base estimators in random forest are decision trees. Unlike bagging meta estimator, random forest randomly selects a set of features which are used to decide the best split at each node of the decision tree.
+Unlike bagging meta estimator, random forest randomly selects a set of features which are used to decide the best split at each node of the decision tree.
 
-Looking at it step-by-step, this is what a random forest model does:
+1. Random subsets are created from the original dataset (bootstrapping).
+2. At each node in the decision tree, only a random set of features are considered to decide the best split.
+3. A decision tree model is fitted on each of the subsets.
+4. The final prediction is calculated by averaging the predictions from all decision trees.
 
-    Random subsets are created from the original dataset (bootstrapping).
-    At each node in the decision tree, only a random set of features are considered to decide the best split.
-    A decision tree model is fitted on each of the subsets.
-    The final prediction is calculated by averaging the predictions from all decision trees.
-
-Note: The decision trees in random forest can be built on a subset of data and features. Particularly, the sklearn model of random forest uses all features for decision tree and a subset of features are randomly selected for splitting at each node.
 
 To sum up, Random forest randomly selects data points and features, and builds multiple trees (Forest) .
 
-Code:
-
+```python
 from sklearn.ensemble import RandomForestClassifier
 model= RandomForestClassifier(random_state=1)
 model.fit(x_train, y_train)
@@ -274,21 +268,17 @@ for i, j in sorted(zip(x_train.columns, model.feature_importances_)):
 The result is as below:
 
 ApplicantIncome 0.180924483743
-CoapplicantIncome 0.135979758733
-Credit_History 0.186436670523
-.
-.
-.
-Property_Area_Urban 0.0167025290557
-Self_Employed_No 0.0165385567137
-Self_Employed_Yes 0.0134763695267
+...
+```
 
-Sample code for regression problem:
-
+For Regression problem:
+```python
 from sklearn.ensemble import RandomForestRegressor
 model= RandomForestRegressor()
 model.fit(x_train, y_train)
 model.score(x_test,y_test)
+```
+
 
 Parameters
 
@@ -320,10 +310,10 @@ Parameters
         It is used for comparison between various models.
 
    
-4.3 AdaBoost
+### AdaBoost
 
 Adaptive boosting or AdaBoost is one of the simplest boosting algorithms. Usually, decision trees are used for modelling. Multiple sequential models are created, each correcting the errors from the last model. AdaBoost assigns weights to the observations which are incorrectly predicted and the subsequent model works to predict these values correctly.
-
+<!-- 
 Below are the steps for performing the AdaBoost algorithm:
 
     Initially, all observations in the dataset are given equal weights.
@@ -333,8 +323,9 @@ Below are the steps for performing the AdaBoost algorithm:
     While creating the next model, higher weights are given to the data points which were predicted incorrectly.
     Weights can be determined using the error value. For instance, higher the error more is the weight assigned to the observation.
     This process is repeated until the error function does not change, or the maximum limit of the number of estimators is reached.
-
-Code:
+ -->
+```python
+#for classification problem:
 
 from sklearn.ensemble import AdaBoostClassifier
 model = AdaBoostClassifier(random_state=1)
@@ -342,51 +333,39 @@ model.fit(x_train, y_train)
 model.score(x_test,y_test)
 0.81081081081081086
 
-Sample code for regression problem:
+for regression problem:
 
 from sklearn.ensemble import AdaBoostRegressor
 model = AdaBoostRegressor()
 model.fit(x_train, y_train)
 model.score(x_test,y_test)
 
+```
 Parameters
 
-    base_estimators:
-        It helps to specify the type of base estimator, that is, the machine learning algorithm to be used as base learner.
-    n_estimators:
-        It defines the number of base estimators.
-        The default value is 10, but you should keep a higher value to get better performance.
+    base_estimators: Any Ml algo as base learner.
+    n_estimators:[default value is 10]
     learning_rate:
-        This parameter controls the contribution of the estimators in the final combination.
-        There is a trade-off between learning_rate and n_estimators.
-    max_depth:
-        Defines the maximum depth of the individual estimator.
-        Tune this parameter for best performance.
-    n_jobs
-        Specifies the number of processors it is allowed to use.
-        Set value to -1 for maximum processors allowed.
-    random_state :
-        An integer value to specify the random data split.
-        A definite value of random_state will always produce same results if given with same parameters and training data.
+    max_depth: maximum depth of the individual estimator.
+    n_jobs: Set value to -1 for maximum processors allowed.
+    random_state : To produce same results
 
  
-4.4 Gradient Boosting (GBM)
+### Gradient Boosting (GBM)
 
-Gradient Boosting or GBM is another ensemble machine learning algorithm that works for both regression and classification problems. GBM uses the boosting technique, combining a number of weak learners to form a strong learner. Regression trees used as a base learner, each subsequent tree in series is built on the errors calculated by the previous tree.
+In GBM, each subsequent tree in series is built on the errors calculated by the previous tree.
 
 We will use a simple example to understand the GBM algorithm. We have to predict the age of a group of people using the below data:
 
-    The mean age is assumed to be the predicted value for all observations in the dataset.
-    The errors are calculated using this mean prediction and actual values of age.
-    A tree model is created using the errors calculated above as target variable. Our objective is to find the best split to minimize the error.
-    The predictions by this model are combined with the predictions 1.
+1. The mean age is assumed to be the predicted value for all observations in the dataset.
+2. The errors are calculated using this mean prediction and actual values of age.
+3. A tree model is created using the errors calculated above as target variable. Our objective is to find the best split to minimize the error.
+4. The predictions by this model are combined with the predictions 1.
+5. This value calculated above is the new prediction.
+6.New errors are calculated using this predicted value and actual value.
+7. Steps 2 to 6 are repeated till the maximum number of iterations is reached (or error function does not change).
 
-    This value calculated above is the new prediction.
-    New errors are calculated using this predicted value and actual value.
-    Steps 2 to 6 are repeated till the maximum number of iterations is reached (or error function does not change).
-
-Code:
-
+```python
 from sklearn.ensemble import GradientBoostingClassifier
 model= GradientBoostingClassifier(learning_rate=0.01,random_state=1)
 model.fit(x_train, y_train)
@@ -399,12 +378,12 @@ from sklearn.ensemble import GradientBoostingRegressor
 model= GradientBoostingRegressor()
 model.fit(x_train, y_train)
 model.score(x_test,y_test)
+```
 
 Parameters
 
     min_samples_split
         Defines the minimum number of samples (or observations) which are required in a node to be considered for splitting.
-        Used to control over-fitting. Higher values prevent a model from learning relations which might be highly specific to the particular sample selected for a tree.
     min_samples_leaf
         Defines the minimum samples required in a terminal or leaf node.
         Generally, lower values should be chosen for imbalanced class problems because the regions in which the minority class will be in the majority will be very small.
@@ -412,43 +391,32 @@ Parameters
     min_weight_fraction_leaf
         Similar to min_samples_leaf but defined as a fraction of the total number of observations instead of an integer.
     max_depth
-        The maximum depth of a tree.
-        Used to control over-fitting as higher depth will allow the model to learn relations very specific to a particular sample.
-        Should be tuned using CV.
-    max_leaf_nodes
-        The maximum number of terminal nodes or leaves in a tree.
-        Can be defined in place of max_depth. Since binary trees are created, a depth of ‘n’ would produce a maximum of 2^n leaves.
-        If this is defined, GBM will ignore max_depth.
-    max_features
-        The number of features to consider while searching for the best split. These will be randomly selected.
+    max_features: 
+        No of featur for further split
         As a thumb-rule, the square root of the total number of features works great but we should check up to 30-40% of the total number of features.
-        Higher values can lead to over-fitting but it generally depends on a case to case scenario.
-
  
-4.5 XGBoost
+### XGBoost
 
 XGBoost (extreme Gradient Boosting) is an advanced implementation of the gradient boosting algorithm. XGBoost has proved to be a highly effective ML algorithm, extensively used in machine learning competitions and hackathons. XGBoost has high predictive power and is almost 10 times faster than the other gradient boosting techniques. It also includes a variety of regularization which reduces overfitting and improves overall performance. Hence it is also known as ‘regularized boosting‘ technique.
 
 Let us see how XGBoost is comparatively better than other techniques:
 
-    Regularization:
-        Standard GBM implementation has no regularisation like XGBoost.
-        Thus XGBoost also helps to reduce overfitting.
-    Parallel Processing:
-        XGBoost implements parallel processing and is faster than GBM .
-        XGBoost also supports implementation on Hadoop.
-    High Flexibility:
-        XGBoost allows users to define custom optimization objectives and evaluation criteria adding a whole new dimension to the model.
-    Handling Missing Values:
-        XGBoost has an in-built routine to handle missing values.
-    Tree Pruning:
-        XGBoost makes splits up to the max_depth specified and then starts pruning the tree backwards and removes splits beyond which there is no positive gain.
-    Built-in Cross-Validation:
-        XGBoost allows a user to run a cross-validation at each iteration of the boosting process and thus it is easy to get the exact optimum number of boosting iterations in a single run.
+Regularization:
+    Standard GBM implementation has no regularisation like XGBoost.
+    Thus XGBoost also helps to reduce overfitting.
+Parallel Processing:
+    XGBoost implements parallel processing and is faster than GBM .
+    XGBoost also supports implementation on Hadoop.
+High Flexibility:
+    XGBoost allows users to define custom optimization objectives and evaluation criteria adding a whole new dimension to the model.
+Handling Missing Values:
+    XGBoost has an in-built routine to handle missing values.
+Tree Pruning:
+    XGBoost makes splits up to the max_depth specified and then starts pruning the tree backwards and removes splits beyond which there is no positive gain.
+Built-in Cross-Validation:
+    get the exact optimum number of boosting iterations in a single run.
 
-Code:
-
-Since XGBoost takes care of the missing values itself, you do not have to impute the missing values. You can skip the step for missing value imputation from the code mentioned above. Follow the remaining steps as always and then apply xgboost as below.
+```python
 
 import xgboost as xgb
 model=xgb.XGBClassifier(random_state=1,learning_rate=0.01)
@@ -462,46 +430,39 @@ import xgboost as xgb
 model=xgb.XGBRegressor()
 model.fit(x_train, y_train)
 model.score(x_test,y_test)
+```
 
 Parameters
 
     nthread
-        This is used for parallel processing and the number of cores in the system should be entered..
-        If you wish to run on all cores, do not input this value. The algorithm will detect it automatically.
     eta
-        Analogous to learning rate in GBM.
-        Makes the model more robust by shrinking the weights on each step.
+
     min_child_weight
         Defines the minimum sum of weights of all observations required in a child.
-        Used to control over-fitting. Higher values prevent a model from learning relations which might be highly specific to the particular sample selected for a tree.
+        Used to control over-fitting. 
     max_depth
-        It is used to define the maximum depth.
-        Higher depth will allow the model to learn relations very specific to a particular sample.
     max_leaf_nodes
         The maximum number of terminal nodes or leaves in a tree.
-        Can be defined in place of max_depth. Since binary trees are created, a depth of ‘n’ would produce a maximum of 2^n leaves.
+        Can be defined in place of max_depth. 
         If this is defined, GBM will ignore max_depth.
     gamma
-        A node is split only when the resulting split gives a positive reduction in the loss function. Gamma specifies the minimum loss reduction required to make a split.
-        Makes the algorithm conservative. The values can vary depending on the loss function and should be tuned.
+        Gamma specifies the minimum loss reduction required to make a split.
     subsample
-        Same as the subsample of GBM. Denotes the fraction of observations to be randomly sampled for each tree.
-        Lower values make the algorithm more conservative and prevent overfitting but values that are too small might lead to under-fitting.
+        Denotes the fraction of observations to be randomly sampled for each tree.
     colsample_bytree
-        It is similar to max_features in GBM.
-        Denotes the fraction of columns to be randomly sampled for each tree.
+        fraction of columns to be randomly sampled for each tree.
 
  
 4.6 Light GBM
 
-Before discussing how Light GBM works, let’s first understand why we need this algorithm when we have so many others (like the ones we have seen above). Light GBM beats all the other algorithms when the dataset is extremely large. Compared to the other algorithms, Light GBM takes lesser time to run on a huge dataset.
+- Light GBM beats all the other algorithms when the dataset is extremely large. 
+- Light GBM takes lesser time to run on a huge dataset.
 
-LightGBM is a gradient boosting framework that uses tree-based algorithms and follows leaf-wise approach while other algorithms work in a level-wise approach pattern. The images below will help you understand the difference in a better way.
+- leaf-wise approach while other algorithms work in a level-wise approach pattern.
 
-Leaf-wise grwth may cause over-fitting on smaller datasets but that can be avoided by using the ‘max_depth’ parameter for learning. You can read more about Light GBM and its comparison with XGB in this article.
+***Leaf-wise grwth may cause over-fitting on smaller datasets but that can be avoided by using the ‘max_depth’ parameter for learning. You can read more about Light GBM and its comparison with XGB in this article.***
 
-Code:
-
+```python
 import lightgbm as lgb
 train_data=lgb.Dataset(x_train,label=y_train)
 #define parameters
@@ -523,7 +484,7 @@ params = {'learning_rate':0.001}
 model= lgb.train(params, train_data, 100)
 from sklearn.metrics import mean_squared_error
 rmse=mean_squared_error(y_pred,y_test)**0.5
-
+```
 Parameters
 
     num_iterations:
@@ -549,12 +510,9 @@ Parameters
 
 Handling categorical variables is a tedious process, especially when you have a large number of such variables. When your categorical variables have too many labels (i.e. they are highly cardinal), performing one-hot-encoding on them exponentially increases the dimensionality and it becomes really difficult to work with the dataset.
 
-CatBoost can automatically deal with categorical variables and does not require extensive data preprocessing like other machine learning algorithms. Here is an article that explains CatBoost in detail.
 
-Code:
-
-CatBoost algorithm effectively deals with categorical variables. Thus, you should not perform one-hot encoding for categorical variables. Just load the files, impute missing values, and you’re good to go.
-
+- Doesn't handle missing values
+```python
 from catboost import CatBoostClassifier
 model=CatBoostClassifier()
 categorical_features_indices = np.where(df.dtypes != np.float)[0]
@@ -569,12 +527,12 @@ model=CatBoostRegressor()
 categorical_features_indices = np.where(df.dtypes != np.float)[0]
 model.fit(x_train,y_train,cat_features=([ 0,  1, 2, 3, 4, 10]),eval_set=(x_test, y_test))
 model.score(x_test,y_test)
+```
 
 Parameters
 
     loss_function:
         Defines the metric to be used for training.
-
     iterations:
         The maximum number of trees that can be built.
         The final number of trees may be less than or equal to this number.
@@ -589,6 +547,4 @@ Parameters
     random_seed:
         This parameter is similar to the ‘random_state’ parameter we have seen previously.
         It is an integer value to define the random seed for training.
-
-This brings us to the end of the ensemble algorithms section. We have covered quite a lot in this article!
 
