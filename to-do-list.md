@@ -13,6 +13,25 @@
 - [ ] [Text Mining Course](https://www.coursera.org/learn/python-text-mining/home/welcome)
 - [ ] [Completely Docs](https://www.github.com/ankishb)
 
+# Participate in Kaggle and implement follwoing kernels
+- [ ] [data-augmentation](https://www.kaggle.com/devm2024/transfer-learning-with-vgg-16-cnn-aug-lb-0-1712) 
+- [ ] [data-aug-tut](https://www.kaggle.com/devm2024/keras-model-for-beginners-0-210-on-lb-eda-r-d)
+- [ ] [another-data-aug](https://medium.com/datadriveninvestor/keras-imagedatagenerator-methods-an-easy-guide-550ecd3c0a92)
+
+```python
+from keras.preprocessing.image import ImageDataGenerator
+
+data_generator = ImageDataGenerator(rescale=1./255, validation_split=0.33)
+
+train_generator = data_generator.flow_from_directory(TRAINING_DIR, target_size=(IMAGE_SIZE, IMAGE_SIZE), shuffle=True, seed=13, class_mode='categorical', batch_size=BATCH_SIZE, subset="training")
+
+validation_generator = data_generator.flow_from_directory(TRAINING_DIR, target_size=(IMAGE_SIZE, IMAGE_SIZE), shuffle=True, seed=13, class_mode='categorical', batch_size=BATCH_SIZE, subset="validation")
+```
+
+
+
+
+
 
 [kd]: https://www.kdnuggets.com/data_mining_course/index.html
 [ms]: https://courses.edx.org/courses/course-v1:Microsoft+DAT203.1x+1T2018a/course/
