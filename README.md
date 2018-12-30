@@ -4,18 +4,18 @@
 
 # Feature extraction
 
-[Categorical encoding by contrast Coding]
-[Feature Engineering]
-- Indicator Variables: Bining
-- Interaction Features: Sum, multiply, max, stat
-- Feature Representation: Encoding
-- Error Analysis (Post-Modeling): Feature Selection, cross-validation
-- External Data: Domain Knowledge
-[Feature Selection]
-- Filter Methods
-- Wrapper Methods
-- Embedded Methods
-- Difference between Filter and Wrapper methods
+- [Categorical encoding by contrast Coding]
+- [Feature Engineering]
+	- Indicator Variables: Bining
+	- Interaction Features: Sum, multiply, max, stat
+	- Feature Representation: Encoding
+	- Error Analysis (Post-Modeling): Feature Selection, cross-validation
+	- External Data: Domain Knowledge
+- [Feature Selection]
+	- Filter Methods
+	- Wrapper Methods
+	- Embedded Methods
+	- Difference between Filter and Wrapper methods
 - [Feature Selection] kaggle
 	1) Feature selection with correlation and random forest classification¶
 	2) Univariate feature selection and random forest classification
