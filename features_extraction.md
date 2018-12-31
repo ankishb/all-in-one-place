@@ -18,6 +18,15 @@ data['cat_variable_encoding'] = encoder.fit_transform(data['cat_variable'])
 ```
 
 
+## Frequency Encoding
+
+- Using frequency or response rate: Combining levels based on business logic is effective but we may always not have the domain knowledge. Imagine, you are given a data set from Aerospace Department, US Govt. How would you apply business logic here? In such cases, we combine levels by considering the frequency distribution or response rate.
+- To combine levels using their frequency, we first look at the frequency distribution of of each level and combine levels having frequency less than 5% of total observation (5% is standard but you can change it based on distribution). This is an effective method to deal with rare levels.
+- We can also combine levels by considering the response rate of each level. We can simply combine levels having similar response rate into same group.
+    Finally, you can also look at both frequency and response rate to combine levels. You first combine levels based on response rate then combine rare levels to relevant group.
+
+
+
 
 
 

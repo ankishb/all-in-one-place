@@ -5,6 +5,7 @@
 # Feature extraction
 
 - [Categorical encoding by contrast Coding]
+- Frequency Encoding
 - [Feature Engineering]
 	- Indicator Variables: Bining
 	- Interaction Features: Sum, multiply, max, stat
