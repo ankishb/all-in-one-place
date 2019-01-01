@@ -1,4 +1,7 @@
 
+- [a must read likelihood encoding](https://www.kaggle.com/tnarik/likelihood-encoding-of-categorical-features)
+
+- [nice xgboost ususage in kaggle](https://github.com/solegalli/DataScience-Portfolio)
 
 # Feature extraction
 
@@ -15,11 +18,11 @@
 - Embedded Methods
 - Difference between Filter and Wrapper methods
 - [Feature Selection] kaggle
-	1) Feature selection with correlation and random forest classification¶
-	2) Univariate feature selection and random forest classification
-	3) Recursive feature elimination (RFE) with random forest
-	4) Recursive feature elimination with cross validation and random forest classification
-	5) Tree based feature selection and random forest classification
+	1. Feature selection with correlation and random forest classification¶
+	2. Univariate feature selection and random forest classification
+	3. Recursive feature elimination (RFE) with random forest
+	4. Recursive feature elimination with cross validation and random forest classification
+	5. Tree based feature selection and random forest classification
 
 
 # practical-data-science

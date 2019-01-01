@@ -1,23 +1,35 @@
 # all-in-one-place
 
+# data-science-book
+- [PythonDataScienceHandbook](https://jakevdp.github.io/PythonDataScienceHandbook/01.03-magic-commands.html)
+
+# python-imp
+
+- set
+- sort
+- slicing
+
+
+# README-data-science
+
 
 
 # Feature extraction
 
-- [Categorical encoding by contrast Coding]
+- Categorical encoding by contrast Coding
 - Frequency Encoding
-- [Feature Engineering]
+- Feature Engineering
 	- Indicator Variables: Bining
 	- Interaction Features: Sum, multiply, max, stat
 	- Feature Representation: Encoding
 	- Error Analysis (Post-Modeling): Feature Selection, cross-validation
 	- External Data: Domain Knowledge
-- [Feature Selection]
+- Feature Selection
 	- Filter Methods
 	- Wrapper Methods
 	- Embedded Methods
 	- Difference between Filter and Wrapper methods
-- [Feature Selection] kaggle
+- Feature Selection (kaggle)
 	1) Feature selection with correlation and random forest classification¶
 	2) Univariate feature selection and random forest classification
 	3) Recursive feature elimination (RFE) with random forest

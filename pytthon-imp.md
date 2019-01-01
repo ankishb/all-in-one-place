@@ -8,8 +8,6 @@ my_dict['ban'] = 30
 sorted(my_dict, reverse=True, key=lambda x: x[1])
 
 
-// label encoding for reviews from 0 to 5
-np.where(df['Rating'] > 3, 1, 0)
 
 
 'abcdefghijklm'[::3]  # beginning to end, counting by 3

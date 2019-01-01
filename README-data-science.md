@@ -1,8 +1,51 @@
 # data-science-practicles
 
-## Imp key usage of padas
+## Encoding over-view [lib for implement](http://contrib.scikit-learn.org/categorical-encoding/polynomial.html)
+- `Sum`: compares the mean of the dependent variable for a given level to the overall mean of the dependent variable over all the levels. That is, it uses contrasts between each of the first k-1 levels and level k In this example, level 1 is compared to all the others, level 2 to all the others, and level 3 to all the others.
+- `Polynomial`: The coefficients taken on by polynomial coding for k=4 levels are the linear, quadratic, and cubic trends in the categorical variable. The categorical variable here is assumed to be represented by an underlying, equally spaced numeric variable. Therefore, this type of encoding is used only for ordered categorical variables with equal spacing.
+- `Backward Difference` the mean of the dependent variable for a level is compared with the mean of the dependent variable for the prior level. This type of coding may be useful for a nominal or an ordinal variable.
+
+## Target Encoding
+```python
+means = train.groupby(col).target.mean()
+train_new[col+'_mean_target'] = train_new[col].map(means)
+val_new[col+'_mean_target'] = val_new[col].map(means)
+```
+- For highly cardinal data-set, use `cat-boost` algo, which has inbuilt category handling capacities.
+
+## PolynomialEncoder
+
+If we try a polynomial encoding, we get a different distribution of values used to encode the columns:
+```python
+encoder = ce.polynomial.PolynomialEncoder(cols=["engine_type"])
+encoder.fit(obj_df, verbose=1)
+encoder.transform(obj_df).iloc[:,0:7].head()
+```
+
+## BackwardDifferenceEncoder
+```python
+import category_encoders as ce
+
+# Get a new clean dataframe
+obj_df = df.select_dtypes(include=['object']).copy()
+
+# Specify the columns to encode then fit and transform
+encoder = ce.backward_difference.BackwardDifferenceEncoder(cols=["engine_type"])
+encoder.fit(obj_df, verbose=1)
+
+# Only display the first 8 columns for brevity
+encoder.transform(obj_df).iloc[:,0:7].head()
+```
+
+## Imp key usage of pandas
 
 [Link][https://jeffdelaney.me/blog/useful-snippets-in-pandas/]
+
+## Label Encoding
+```python
+// label encoding for reviews from 0 to 5
+np.where(df['Rating'] > 3, 1, 0)
+```
 
 ## Find the columns with half serached name
 ```python
