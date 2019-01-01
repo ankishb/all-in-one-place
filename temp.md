@@ -195,6 +195,11 @@ The **Box-Cox transformation** computed by boxcox1p is:
     y = ((1+x)**lmbda - 1) / lmbda  if lmbda != 0
         log(1+x)                    if lmbda == 0
 
+- lambda = -1. is a reciprocal transform.
+- lambda = -0.5 is a reciprocal square root transform.
+- lambda = 0.0 is a log transform.
+- lambda = 0.5 is a square root transform.
+- lambda = 1.0 is no transform
 
 
 ### Complete example of SKEWED FEATURE HANDLING
