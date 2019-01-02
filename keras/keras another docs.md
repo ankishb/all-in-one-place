@@ -186,7 +186,7 @@ model.compile(loss='mean_squared_error', optimizer=sgd)
 - Nadam
 
 ## SGD
-SGD(lr=0.01, momentum=0., decay=0., nesterov=False):
+### SGD(lr=0.01, momentum=0., decay=0., nesterov=False):
     """Stochastic gradient descent optimizer.
     Includes support for momentum,
     learning rate decay, and Nesterov momentum.
@@ -202,7 +202,7 @@ SGD(lr=0.01, momentum=0., decay=0., nesterov=False):
 
 ## RMSProp
 
-RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.):
+### RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.):
     """RMSProp optimizer.
     It is recommended to leave the parameters of this optimizer
     at their default values
@@ -223,7 +223,7 @@ RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.):
 
 ## Adagrad
 
-Adagrad(lr=0.01, epsilon=None, decay=0.):
+### Adagrad(lr=0.01, epsilon=None, decay=0.):
     """Adagrad optimizer.
     Adagrad is an optimizer with parameter-specific learning rates,
     which are adapted relative to how frequently a parameter gets
@@ -244,7 +244,7 @@ Adagrad(lr=0.01, epsilon=None, decay=0.):
 
 ## AdaDelta
 
-Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.,)
+### Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.,)
     """Adadelta optimizer.
     Adadelta is a more robust extension of Adagrad
     that adapts learning rates based on a moving window of gradient updates,
@@ -272,7 +272,7 @@ Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.,)
 ## Adam
 
 
-Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0., amsgrad=False):
+### Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0., amsgrad=False):
     """Adam optimizer.
     Default parameters follow those provided in the original paper.
     # Arguments
@@ -297,7 +297,7 @@ Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0., amsgrad=False):
 ## Nadam
 
 
-Nadam(lr=0.002, beta_1=0.9, beta_2=0.999, epsilon=None, schedule_decay=0.004):
+### Nadam(lr=0.002, beta_1=0.9, beta_2=0.999, epsilon=None, schedule_decay=0.004):
     """Nesterov Adam optimizer.
     Much like Adam is essentially RMSprop with momentum,
     Nadam is Adam RMSprop with Nesterov momentum.
