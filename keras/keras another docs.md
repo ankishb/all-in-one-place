@@ -125,6 +125,18 @@ model.add(Dense(64, kernel_initializer=initializers.random_normal(stddev=0.01)))
 # also works; will use the default parameters.
 model.add(Dense(64, kernel_initializer='random_normal'))
 ```
+### All initializers:
+```python
+#model.add(Dense(64, kernel_initializer=initializers.random_normal(stddev=0.01)))
+keras.initializers.he_uniform(seed=None)
+keras.initializers.he_normal(seed=None)
+keras.initializers.glorot_normal(seed=None)
+keras.initializers.glorot_uniform(seed=None)
+keras.initializers.TruncatedNormal(mean=0.0, stddev=0.05, seed=None)
+keras.initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
+keras.initializers.RandomNormal(mean=0.0, stddev=0.05, seed=None)
+keras.initializers.Constant(value=0)
+```
 
 
 ## Using custom initializers
