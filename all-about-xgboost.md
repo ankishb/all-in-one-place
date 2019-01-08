@@ -6,7 +6,94 @@ author: "Ankish Bansal"
 ---
  -->
 
-## XGBModel
+## General Rule:
+### XGBoost
+#### Bias-Variance Trade off
+- Controlling model complexity
+    `max_depth`, `min_child_weight` and `gamma`
+- Robusr to noise
+    `subsample`, `colsample_bytree`
+
+
+# XGBoost New parameter (Advance)
+- tree_method:
+    hist: Fast histogram optimized approximate greedy algorithm. It uses some performance improvements such as bins caching.
+- grow_policy [default= depthwise]
+
+    Controls a way new nodes are added to the tree.
+    Currently supported only if tree_method is set to hist.
+    Choices: depthwise, lossguide
+        depthwise: split at nodes closest to the root.
+        lossguide: split at nodes with highest loss change.
+
+- max_leaves [default=0]
+
+    Maximum number of nodes to be added. Only relevant when grow_policy=lossguide is set.
+
+- max_bin, [default=256]
+
+    Only used if tree_method is set to hist.
+    Maximum number of discrete bins to bucket continuous features.
+    Increasing this number improves the optimality of splits at the cost of higher computation time.
+
+
+
+
+
+### Light-GBM
+- For best fit
+    `num_leaves`, `min_data_in_leaf` and `max_depth`
+- For faster Speed
+    `bagging_fraction`, `feature_fraction` and `max_bin`
+- For better Accuracy
+    `num_leaves` and `max_bin`   
+
+
+### For Faster Speed
+- `bagging_fraction`
+- `bagging_freq`
+- `max_bin`
+- `feature_fraction`
+
+
+    Use bagging by setting `bagging_fraction` and `bagging_freq`
+    Use feature sub-sampling by setting feature_fraction
+    Use small max_bin
+
+
+For Better Accuracy
+- `max_bin`
+- `learning_rate` and `num_iterations`
+- `num_leaves`
+
+
+    Use large max_bin (may be slower)
+    Use small learning_rate with large num_iterations
+    Use large num_leaves (may cause over-fitting)
+    Use bigger training data
+    Try dart
+
+Deal with Over-fitting
+- `max_bin`
+- `num_leaves`
+- `min_data_in_leaf`
+- `bagging_fraction`
+- `bagging_freq`
+- `lambda_l1`, `lambda_l2` and `min_gain_to_split` (**Regularization**)
+- `max_depth`
+
+    Use small max_bin
+    Use small num_leaves
+    Use min_data_in_leaf and min_sum_hessian_in_leaf
+    Use bagging by set bagging_fraction and bagging_freq
+    Use feature sub-sampling by set feature_fraction
+    Use bigger training data
+    Try lambda_l1, lambda_l2 and min_gain_to_split for regularization
+    Try max_depth to avoid growing deep tree
+
+
+
+
 
 
 ```python
@@ -21,6 +108,8 @@ XGBModel(max_depth=3, learning_rate=0.1, n_estimators=100,
     """Implementation of the Scikit-Learn API for XGBoost.
     Parameters
     ----------
+    -verbosity [default=1]
+        Verbosity of printing messages. Valid values are 0 (silent), 1 (warning), 2 (info), 3 (debug).
     -max_depth : Maximum tree depth for base learners.
     -learning_rate : Boosting learning rate (xgb's "eta")
     -n_estimators : Number of boosted trees to fit.
@@ -47,6 +136,8 @@ XGBModel(max_depth=3, learning_rate=0.1, n_estimators=100,
         "weight", "cover", "total_gain" or "total_cover".
     
     """
+
+
 
 objective [default=reg:linear]
 
@@ -222,7 +313,8 @@ param_test1 = {
  'min_child_weight':range(1,6,2)
 }
 gsearch1 = GridSearchCV(estimator = XGBClassifier( learning_rate =0.1, n_estimators=140, max_depth=5,
-                                                     min_child_weight=1, gamma=0, subsample=0.8, colsample_bytree=0.8, objective= 'binary:logistic', nthread=4, scale_pos_weight=1, seed=27), 
+                                                     min_child_weight=1, gamma=0, subsample=0.8, colsample_bytree=0.8, 
+                                                     objective= 'binary:logistic', nthread=4, scale_pos_weight=1, seed=27), 
 
                          param_grid = param_test1, 
                          scoring='roc_auc',
