@@ -4,14 +4,14 @@
 - [ ] [Utill of main program]
 - [ ] [AWS best][aws] 
 - [ ] [KDD Data-science course][kd]
-- [ ] [EDA coursera](https://www.coursera.org/learn/exploratory-data-analysis/lecture/yUFDH/base-plotting-demonstration)
+- [X] [EDA coursera](https://www.coursera.org/learn/exploratory-data-analysis/lecture/yUFDH/base-plotting-demonstration)
 - [ ] [Microsoft-course brief][ms]
 - [ ] [Docker](https://docs.docker.com/v17.09/engine/faq/)
 - [ ] [santander value prediction challenge](https://www.kaggle.com/c/santander-value-prediction-challenge)
 - [ ] [Stat Course](https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/courseware/f6eb0a2902904c6e8f74a2c15833d1ad/dbbe6095fa55431b8253590e2658dc3e/?activate_block_id=i4x%3A%2F%2FHumanitiesSciences%2FStatLearning%2Fsequential%2Fdbbe6095fa55431b8253590e2658dc3e)
 - [ ] [Stat Course in R Stanford](https://www.youtube.com/playlist?list=PL06ytJZ4Ak1rXmlvxTyAdOEfiVEzH00IK)
-- [ ] [Text Mining Course](https://www.coursera.org/learn/python-text-mining/home/welcome)
-- [ ] [Completely Docs](https://www.github.com/ankishb)
+- [X] [Text Mining Course](https://www.coursera.org/learn/python-text-mining/home/welcome)
+- [X] [Completely Docs](https://www.github.com/ankishb)
 
 # Participate in Kaggle and implement follwoing kernels
 - [ ] [data-augmentation](https://www.kaggle.com/devm2024/transfer-learning-with-vgg-16-cnn-aug-lb-0-1712) 
