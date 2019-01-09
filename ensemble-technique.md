@@ -1,6 +1,26 @@
 
 [src: Analytics-vidya tutorial on Ensembling]
 
+## Stacking
+```python
+stacked_1 = pd.read_csv('../input/stacked1/stacked_1.csv')
+xgb_submit = pd.read_csv('../input/xgbsubmit/xgb_submit_1.csv')
+Froza_and_Pascal = pd.read_csv('../input/forza-and-pascal/Froza_and_Pascal.csv')
+median_rank_submission = pd.read_csv('../input/median-rank-submission/median_rank_submission.csv')
+
+# Ensemble and create submission 
+
+sub = pd.DataFrame()
+sub['id'] = stacked_1['id']
+sub['target'] = np.exp(np.mean(
+    [
+    stacked_1['target'].apply(lambda x: np.log(x)),\
+    xgb_submit['target'].apply(lambda x: np.log(x)),\
+    Froza_and_Pascal['target'].apply(lambda x: np.log(x)),\
+    median_rank_submission['target'].apply(lambda x: np.log(x))\
+    ], axis =0))
+    
+```
 ## Diff between XGBoost and light-GBM
 XGBoost: Level-wise splitting
 

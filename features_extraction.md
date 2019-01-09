@@ -6,6 +6,16 @@
 ## Weighted Linear Regression: Give more importance to the current Year or to some season, when sales are on peak like gift-shoppin while valentine days or sth like that... (Put an exponential decaying as importance for each instances)
 
 
+## Cyclic Features
+Features which are repeated, like month, date, times and so on.
+```python
+import numpy as np
+
+df['hr_sin'] = np.sin(df.hr*(2.*np.pi/24))
+df['hr_cos'] = np.cos(df.hr*(2.*np.pi/24))
+df['mnth_sin'] = np.sin((df.mnth-1)*(2.*np.pi/12))
+df['mnth_cos'] = np.cos((df.mnth-1)*(2.*np.pi/12))
+```
 
 **NOTE**: Pasty is python package(lib), that can help in feature generation
 
