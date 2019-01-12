@@ -1,4 +1,53 @@
 
+## Keras Custom Layer
+
+Example
+
+Now let’s build our custom layer. For the sake of simplicity, we will be building a vanilla fully-connected layer (called Dense in Keras). First let’s make the required imports:
+
+from keras import backend as K
+from keras.engine.topology
+import Layer
+
+Now let’s create our layer named MyDense. Our new layer must inherit from the base Layer class. Set up __init__function to accept the number of units (accepted as output_dim) in the fully connected layer.
+
+class MyDense(Layer):
+
+def __init__(self, output_dim, **kwargs):
+self.units = output_dim
+super(MyLayer, self).__init__(**kwargs)
+
+The build function is where we define the weights of the layer. The weights can be instantiated using the add_weightmethod of the layer class.
+
+The name and shape arguments determine the name used for the backend variable and the shape of the weight variable respectively. If your input is of the shape (batch_size, input_dim), your weights need to be of the shape (input_dim, output_dim). Here, output dimension denotes the number of units in the layer.
+
+Conversely, you may also specify an initializer, regularizer and a constraint. The trainable argument can be set to False to prevent the weight from contributing to the gradient. Make sure you also call the build method of the base layer class.
+
+def build(self, input_shape):
+self.kernel = self.add_weight(name='kernel',
+shape=(input_shape[1], self.output_dim),
+initializer='uniform',
+trainable=True)
+super(MyLayer, self).build(input_shape)
+
+The call function houses the logic of the layer. For our fully connected layer, it means that we have to calculate the dot product between the weights and the input. The input is passed as a parameter and the result of the dot product is returned.
+
+def call(self, x):
+y = K.dot(x, self.kernel)
+return y
+
+The compute_output_shape is a helper function to specify the change in shape of the input when it passes through the layer. Here our output shape will be (batch_size, output_dim):
+
+def compute_output_shape(self, input_shape):
+return (input_shape[0], self.output_dim)
+
+That’s it, you’re good to go. You can use MyDense layer just like any other layer in Keras
+
+
+
+
+
+
 
 ## ImageDataGenerator
 

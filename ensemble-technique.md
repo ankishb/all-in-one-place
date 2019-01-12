@@ -479,6 +479,7 @@ params = {'learning_rate':0.001}
 model= lgb.train(params, train_data, 100)
 from sklearn.metrics import mean_squared_error
 rmse=mean_squared_error(y_pred,y_test)**0.5
+
 ```
 Parameters
 

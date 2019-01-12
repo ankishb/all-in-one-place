@@ -1,8 +1,11 @@
 
 **Note**: Following docs is prepared from the keras official docs/code, with the objective to prepared only info that is used daily in most cases.
 
+
 This doc contains following contents:
 
+- Imp things about Layer
+- Get weights of layers
 - Usuage of regularizer(#usuage-of-regularizer)
 - Custom Loss function(#custom-loss-function)
 - Usuage of initializers(#usuage-of-initializers)
@@ -15,6 +18,31 @@ This doc contains following contents:
     - Adam
     - Nadam
 
+
+## What is inside the layer
+
+Layer encapsulates the weights and the associated computations of the layer. The call method of a layer class contains the layer’s logic. The layer has inbound_nodes and outbound_nodes attributes. Each time a layer is connected to a new input, a node is added to inbound_nodes. Each time the output of a layer is used by another layer, a node is added to outbound_nodes. The layer also carries a list of trainable and non-trainable weights of the layer.
+
+
+
+## get_weights of keras layers
+
+```python
+If you want to get weights and biases of all layers, you can simply use:
+
+```python
+for layer in model.layers: print(layer.get_config(), layer.get_weights())
+```
+
+This will print all information that's relevant.
+
+If you want the weights directly returned as numpy arrays, you can use:
+
+first_layer_weights = model.layers[0].get_weights()[0]
+first_layer_biases  = model.layers[0].get_weights()[1]
+second_layer_weights = model.layers[1].get_weights()[0]
+second_layer_biases  = model.layers[1].get_weights()[1]
+```
 
 ## Usuage of regularizer
 
