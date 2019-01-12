@@ -1,5 +1,30 @@
 # data-science-practicles
 
+## read data from the stack-overflow without storing into file
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+csv = '''   age  y   new_customer
+0   56  0   1
+1   57  1   1
+2   37  0   1
+3   40  0   1
+4   56  1   1
+5   45  0   0
+6   59  0   1
+7   41  1   1
+8   24  0   0
+9   25  0   1
+10  41  1   1
+11  25  0   0
+12  29  0   1'''
+
+df = pd.read_csv(pd.compat.StringIO(csv), sep='\s+')
+
+df
+```
 ## freq encoding 
 temp.groupby('doc_sent_mag').size().sort_values(ascending=False).head()*100/train.shape[0]
 
