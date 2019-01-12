@@ -1,5 +1,13 @@
 # data-science-practicles
 
+## freq encoding 
+temp.groupby('doc_sent_mag').size().sort_values(ascending=False).head()*100/train.shape[0]
+
+## replace one category with another
+# replace cat a with d
+temp.col1.replace('a','d', inplace=True)
+
+
 ## Encoding over-view [lib for implement](http://contrib.scikit-learn.org/categorical-encoding/polynomial.html)
 - `Sum`: compares the mean of the dependent variable for a given level to the overall mean of the dependent variable over all the levels. That is, it uses contrasts between each of the first k-1 levels and level k In this example, level 1 is compared to all the others, level 2 to all the others, and level 3 to all the others.
 - `Polynomial`: The coefficients taken on by polynomial coding for k=4 levels are the linear, quadratic, and cubic trends in the categorical variable. The categorical variable here is assumed to be represented by an underlying, equally spaced numeric variable. Therefore, this type of encoding is used only for ordered categorical variables with equal spacing.
