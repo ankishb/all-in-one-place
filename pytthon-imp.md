@@ -35,3 +35,18 @@ def test_partials():
     assert square(2) == 4
     assert cube(2) == 8
 ```
+
+## slicing in much efficient way
+ 
+For example, you can now easily extract the elements of a list that have even indexes:
+
+```python
+>>> L = range(10)
+>>> L[::2]
+[0, 2, 4, 6, 8]
+```
+Negative values also work to make a copy of the same list in reverse order:
+```python
+>>> L[::-1]
+[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+```
