@@ -1,17 +1,27 @@
 
-- use **set** to find unique word from a list of words.
+## Access info, what is inside the class **Use help, dir, vars**
+```python
+[x for x in dir(class_object) if not x.startswith("__")]
+```
 
+
+## use **set** to find unique word from a list of words.
+
+```python
 my_dict = dict()
 my_dict['ank'] = 20
 my_dict['ban'] = 30
 // sort by values and show result in descending order
 sorted(my_dict, reverse=True, key=lambda x: x[1])
+```
 
 
+## slicing
 
-
+```python
 'abcdefghijklm'[::3]  # beginning to end, counting by 3
 'adgjm'
+```
 
 ## Reduce workload while using function with many many parameters, of which few are fixed
 
