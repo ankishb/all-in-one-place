@@ -7,7 +7,7 @@ This doc contains following contents:
 - Imp things about Layer
 - Get weights of layers
 - Usuage of regularizer(#usuage-of-regularizer)
-- Custom Loss function(#custom-loss-function)
+- Custom Loss function(#custom-loss-function) [Well-explained loss function](https://gombru.github.io/2018/05/23/cross_entropy_loss/)
 - Usuage of initializers(#usuage-of-initializers)
 - Keras Models(#keras-models)
 - Usuage of optimizers(#usuage-of-optimizers)
