@@ -38,6 +38,7 @@ This will print all information that's relevant.
 
 If you want the weights directly returned as numpy arrays, you can use:
 
+```python
 first_layer_weights = model.layers[0].get_weights()[0]
 first_layer_biases  = model.layers[0].get_weights()[1]
 second_layer_weights = model.layers[1].get_weights()[0]
@@ -50,9 +51,9 @@ The penalties are applied on a per-layer basis. The exact API will depend on the
 
 These layers expose 3 keyword arguments:
 
-- `kernel_regularizer`: instance of `keras.regularizers.Regularizer`
-- `bias_regularizer`: instance of `keras.regularizers.Regularizer`
-- `activity_regularizer`: instance of `keras.regularizers.Regularizer`
+    - `kernel_regularizer`: instance of `keras.regularizers.Regularizer`
+    - `bias_regularizer`: instance of `keras.regularizers.Regularizer`
+    - `activity_regularizer`: instance of `keras.regularizers.Regularizer`
 
 
 ## Example
@@ -153,6 +154,7 @@ model.add(Dense(64, kernel_initializer=initializers.random_normal(stddev=0.01)))
 # also works; will use the default parameters.
 model.add(Dense(64, kernel_initializer='random_normal'))
 ```
+
 ### All initializers:
 ```python
 #model.add(Dense(64, kernel_initializer=initializers.random_normal(stddev=0.01)))
@@ -184,7 +186,7 @@ model.add(Dense(64, kernel_initializer=my_init))
 ## Keras Models
 
 These models have a number of methods and attributes in common:
-
+"""
 - `model.layers` is a flattened list of the layers comprising the model.
 - `model.inputs` is the list of input tensors of the model.
 - `model.outputs` is the list of output tensors of the model.
@@ -198,7 +200,7 @@ These models have a number of methods and attributes in common:
 
 - `model.save_weights(filepath)` saves the weights of the model as a HDF5 file.
 - `model.load_weights(filepath, by_name=False)` loads the weights of the model from a HDF5 file (created by `save_weights`). By default, the architecture is expected to be unchanged. To load weights into a different architecture (with some layers in common), use `by_name=True` to load only those layers with the same name.
-
+"""
 
 
 
@@ -370,12 +372,12 @@ model.compile(loss='mean_squared_error', optimizer=sgd)
 
 
 
-AdaGrad: weakness: lr_rate decaying
+- AdaGrad: weakness: lr_rate decaying
 Notice that the weights that receive high gradients will have their effective learning rate reduced, while weights that receive small or infrequent updates will have their effective learning rate increased. This agressive behaviour, stops Deep-NN to learn very early.
 
-RMSProp:
+- RMSProp:
 The RMSProp update adjusts the Adagrad method in a very simple way in an attempt to reduce its aggressive, monotonically decreasing learning rate. In particular, it uses a moving average of squared gradients instead. Hence, RMSProp still modulates the learning rate of each weight based on the magnitudes of its gradients, which has a beneficial equalizing effect, but unlike Adagrad the updates do not get monotonically smaller
 
-AdaDelta: Removed weakness of adadelta
+- AdaDelta: Removed weakness of adadelta
 Best, if we are using sparse data such as tf-idf features for words.
 
